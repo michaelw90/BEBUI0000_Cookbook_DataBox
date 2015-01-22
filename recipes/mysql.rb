@@ -6,25 +6,38 @@
 #
 
 root_password = node["databox"]["db_root_password"]
-if root_password
-  Chef::Log.info %(Set mysql.server_*_password attributes to node["databox"]["db_root_password"])
-  node.set["mysql"]["server_root_password"] = root_password
-  node.set["mysql"]["server_repl_password"] = root_password
-  node.set["mysql"]["server_debian_password"] = root_password
+
+# Install the MySQL service
+mysql_service 'default' do
+  initial_root_password root_password
+  action [:create, :start]
 end
 
-include_recipe "mysql::client"
-include_recipe "mysql::server"
+# Install the MySQL Client
+mysql_client 'default' do
+  action :create
+end
+
+# Include the database recipes for MySQL
 include_recipe "database::mysql"
 
-mysql_connection_info = {
-  :host => "localhost",
-  :username => 'root',
-  :password => node['mysql']['server_root_password']
-}
-
+# Loop through each database that we are to add
 node["databox"]["databases"]["mysql"].each do |entry|
 
+  # Retrieve the database host if set, otherwise use 127.0.0.1
+  database_host = '127.0.0.1'
+  if entry["host"]
+    database_host = entry["host"]
+  end
+  
+  # Set the connection information dictionary
+  mysql_connection_info = {
+    :host => database_host,
+    :username => 'root',
+    :password => root_password
+  }
+
+  # Create the database
   mysql_database entry["database_name"] do
     connection mysql_connection_info
     encoding entry["encoding"] if entry["encoding"]
@@ -32,13 +45,14 @@ node["databox"]["databases"]["mysql"].each do |entry|
     action :create
   end
 
+  # Create the database user
   mysql_database_user entry["username"] do
     connection mysql_connection_info
     action [:create, :grant]
     password(entry["password"])           if entry["password"]
     database_name(entry["database_name"]) if entry["database_name"]
     privileges(entry["privileges"])       if entry["privileges"]
-    host(entry["host"])                   if entry["host"]
+    host(database_host)                   if database_host
     table(entry["table"])                 if entry["table"]
   end
 
