@@ -6,6 +6,5 @@ default["cookbook_databox"]["databases"] = {}
 default["cookbook_databox"]["databases"]["mysql"] = []
 default["cookbook_databox"]["databases"]["postgresql"] = []
 
-# This is currently set until the database cookbook updates itself to not have this problem
-# against the latest mysql cookbook.
-set['mysql']['version'] = '5.6'
+default["cookbook_databox"]["mysql_version"] = "5.6"
+

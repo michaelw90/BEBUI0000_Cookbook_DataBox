@@ -7,6 +7,9 @@
 
 root_password = node["cookbook_databox"]["db_root_password"]
 
+# Set the mysql version we want
+node.set['mysql']['version'] = node["cookbook_databox"]["mysql_version"]
+
 # Install the MySQL service
 mysql_service 'default' do
   initial_root_password root_password
