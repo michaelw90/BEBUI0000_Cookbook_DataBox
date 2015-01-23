@@ -8,5 +8,6 @@ Gemfile.lock
 .*.sw[a-z]
 *.un~
 /cookbooks
-/.idea
 *.iml
+.vagrant/
+.idea/

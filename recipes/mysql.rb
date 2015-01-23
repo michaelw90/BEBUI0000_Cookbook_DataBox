@@ -1,11 +1,11 @@
 #
-# Cookbook Name:: databox
+# Cookbook Name:: cookbook_databox
 # Recipe:: mysql
 #
 # Install MySQL and create specified databases and users.
 #
 
-root_password = node["databox"]["db_root_password"]
+root_password = node["cookbook_databox"]["db_root_password"]
 
 # Install the MySQL service
 mysql_service 'default' do
@@ -22,7 +22,7 @@ end
 include_recipe "database::mysql"
 
 # Loop through each database that we are to add
-node["databox"]["databases"]["mysql"].each do |entry|
+node["cookbook_databox"]["databases"]["mysql"].each do |entry|
 
   # Retrieve the database host if set, otherwise use 127.0.0.1
   database_host = '127.0.0.1'

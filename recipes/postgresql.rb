@@ -1,13 +1,13 @@
 #
-# Cookbook Name:: databox
+# Cookbook Name:: cookbook_databox
 # Recipe:: postgresql
 #
 # Install Postgresql and create specified databases and users.
 #
 
-root_password = node["databox"]["db_root_password"]
+root_password = node["cookbook_databox"]["db_root_password"]
 if root_password
-  Chef::Log.info %(Set node["postgresql"]["password"]["postgres"] attributes to node["databox"]["db_root_password"])
+  Chef::Log.info %(Set node["postgresql"]["password"]["postgres"] attributes to node["cookbook_databox"]["db_root_password"])
   node.set["postgresql"]["password"]["postgres"] = root_password
 end
 
@@ -31,7 +31,7 @@ postgresql_connection_info = {
   :password => node['postgresql']['password']['postgres']
 }
 
-node["databox"]["databases"]["postgresql"].each do |entry|
+node["cookbook_databox"]["databases"]["postgresql"].each do |entry|
 
   postgresql_database entry["database_name"] do
     connection postgresql_connection_info
