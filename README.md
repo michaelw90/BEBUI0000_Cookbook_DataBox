@@ -1,4 +1,4 @@
-# Chef cookbook - databox (v0.1.1)
+# Chef cookbook - cookbook_databox (v0.1.1)
 
 Setup a **database server** that runs multiple MySQL and PostgreSQL databases.
 
@@ -8,26 +8,26 @@ Setup a **database server** that runs multiple MySQL and PostgreSQL databases.
 To install with **Berkshelf**, add this into `Berksfile`:
 
 ```
-cookbook 'databox'
+cookbook 'cookbook_databox'
 ```
 
 ## Usage
 
-Add `databox::default` recipe into run list, or include the recipe in your code:
+Add `cookbook_databox::default` recipe into run list, or include the recipe in your code:
 
 ```
-include_recipe "databox::default"
+include_recipe "cookbook_databox::default"
 ```
 
 And overwrite attributes to customize the cookbook.
 
-See also [teohm/kitchen-sample](https://github.com/teohm/kitchen-example) for `databox` usage example with chef-solo.
+See also [teohm/kitchen-sample](https://github.com/teohm/kitchen-example) for `cookbook_databox` usage example with chef-solo.
 
 ## Attributes
 
 You **should** set the database root password:
 
- * `node["databox"]["db_root_password"]` (default: `nil`) - password string.
+ * `node["cookbook_databox"]["db_root_password"]` (default: `nil`) - password string.
    * for **MySQL**, it overwrites the following passwords in `mysql` cookbook:
      * `node.set["mysql"]["server_root_password"]`
      * `node.set["mysql"]["server_repl_password"]`
@@ -37,11 +37,11 @@ You **should** set the database root password:
  
 To install **MySQL**, provide a list of database entries:
 
-  * `node["databox"]["databases"]["mysql"]` (default: `[]`)
+  * `node["cookbook_databox"]["databases"]["mysql"]` (default: `[]`)
     
     ```
     # Example:
-    node.set["databox"]["databases"]["mysql"] = [
+    node.set["cookbook_databox"]["databases"]["mysql"] = [
       {
         "database_name" => "app1_production",
         "username" => "app1",
@@ -73,11 +73,11 @@ To install **MySQL**, provide a list of database entries:
 
 To install **PostgreSQL**, provide a list of database entries:
 
-  * `node["databox"]["databases"]["postgresql"]` (default: `[]`)
+  * `node["cookbook_databox"]["databases"]["postgresql"]` (default: `[]`)
     
     ```
     # Example:
-    node.set["databox"]["databases"]["postgresql"] = [
+    node.set["cookbook_databox"]["databases"]["postgresql"] = [
       {
         "database_name" => "app1_production",
         "username" => "app1",
@@ -114,9 +114,9 @@ To install **PostgreSQL**, provide a list of database entries:
 
 ## Recipes
 
- * `databox::default` - run all recipes.
- * `databox::mysql` - install MySQL and create MySQL databases.
- * `databox::postgresql` - install PostgreSQL and create PostgreSQL databases.
+ * `cookbook_databox::default` - run all recipes.
+ * `cookbook_databox::mysql` - install MySQL and create MySQL databases.
+ * `cookbook_databox::postgresql` - install PostgreSQL and create PostgreSQL databases.
 
 ## Requirements
 
