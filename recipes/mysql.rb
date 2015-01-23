@@ -10,12 +10,14 @@ root_password = node["cookbook_databox"]["db_root_password"]
 # Install the MySQL service
 mysql_service 'default' do
   initial_root_password root_password
+  version node["mysql"]["version"]
   action [:create, :start]
 end
 
 # Install the MySQL Client
 mysql_client 'default' do
   action :create
+  version node["mysql"]["version"]
 end
 
 # Include the database recipes for MySQL
