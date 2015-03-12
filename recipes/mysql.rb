@@ -10,6 +10,11 @@ root_password = node["cookbook_databox"]["db_root_password"]
 # Set the mysql version we want
 node.set['mysql']['version'] = node["cookbook_databox"]["mysql_version"]
 
+# Install the mysql chef gem
+mysql2_chef_gem 'default' do
+  action :install
+end
+
 # Install the MySQL service
 mysql_service 'default' do
   initial_root_password root_password
@@ -22,9 +27,6 @@ mysql_client 'default' do
   action :create
   version node["mysql"]["version"]
 end
-
-# Include the database recipes for MySQL
-include_recipe "database::mysql"
 
 # Loop through each database that we are to add
 node["cookbook_databox"]["databases"]["mysql"].each do |entry|
