@@ -12,6 +12,7 @@ node.set['mysql']['version'] = node["cookbook_databox"]["mysql_version"]
 
 # Install the mysql chef gem
 mysql2_chef_gem 'default' do
+  client_version node["cookbook_databox"]["mysql_version"]
   action :install
 end
 
