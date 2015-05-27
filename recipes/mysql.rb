@@ -29,6 +29,14 @@ mysql_client 'default' do
   version node["mysql"]["version"]
 end
 
+# Install my own configuration for MySQL
+mysql_config 'my-server' do
+  source node['cookbook_databox']['mysql_configuration_template']
+  cookbook node['cookbook_databox']['mysql_configuration_cookbook']
+  notifies :restart, 'mysql_service[foo]'
+  action :create
+end
+
 # Loop through each database that we are to add
 node["cookbook_databox"]["databases"]["mysql"].each do |entry|
 
