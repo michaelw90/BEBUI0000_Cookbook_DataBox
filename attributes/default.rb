@@ -8,6 +8,6 @@ default["cookbook_databox"]["databases"]["postgresql"] = nil
 
 default["cookbook_databox"]["mysql_version"] = "5.6"
 
-default["cookbook_databox"]["mysql_configuration_template"] = 'my-server.cnf.erb'
+default["cookbook_databox"]["mysql_configuration_template"] = 'default.cnf.erb'
 default["cookbook_databox"]["mysql_configuration_cookbook"] = 'cookbook_databox'
 

@@ -30,10 +30,10 @@ mysql_client 'default' do
 end
 
 # Install my own configuration for MySQL
-mysql_config 'my-server' do
+mysql_config 'default' do
   source node['cookbook_databox']['mysql_configuration_template']
   cookbook node['cookbook_databox']['mysql_configuration_cookbook']
-  notifies :restart, 'mysql_service[foo]'
+  notifies :restart, 'mysql_service[default]'
   action :create
 end
 
