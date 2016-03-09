@@ -12,6 +12,7 @@ recipe            "cookbook_databox::postgresql", "Install PostgreSQL and create
 
 supports "ubuntu"
 supports "debian"
+supports "redhat"
 
 depends "database"
 depends "mysql"
